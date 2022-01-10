@@ -52,3 +52,27 @@ impl<T, U> Point2<T, U> {
         &self.y
     }
 }
+
+// 函数中加入范型，
+//(1)符号"<"用于比较大小，这一运算符被定义为std::cmp::PartialOrd中，因此范型T需要属于该类型
+//(2)如果使用list[0]方式取出数据，需要实现Copy
+pub fn find_largest<T: PartialOrd + Copy>(list: &[T]) -> T {
+    let mut max = list[0];
+    for &i in list.iter() {
+        if max < i {
+            max = i;
+        }
+    }
+    return max;
+}
+// 如果返回值为&T，入参就可以不用实现Copy
+pub fn find_largest_simple<T>(list: &[T]) -> &T
+where T: PartialOrd {
+    let mut max = &(list[0]);
+    for i in list.iter() {
+        if *max < *i {
+            max = &i;
+        }
+    }
+    return max;
+}

@@ -1,6 +1,7 @@
-use cp10_trait::summary::Summary;
+use cp10_trait::summary::{Summary, notify, notify2, notify3};
 use cp10_trait::pattern;
 use cp10_trait::no_pattern;
+use cp10_trait::partial::Pair;
 
 mod cp10_trait;
 
@@ -30,5 +31,39 @@ fn main() {
         reweet: false
     };
     println!("1 new tweet {}", tweet.summarize());
+    // 调用入参为trait的函数
+    notify(&tweet);
+    notify2(&tweet);
+    notify3(&tweet, &tweet);
+
+    // 使用带范型的函数比较大小
+    let max = cp10_trait::pattern::find_largest(&list);
+    println!("max:{}", max);
+    let list = vec![34, 50, 25, 100, 65];
+    println!("max:{}", cp10_trait::pattern::find_largest(&list));
+    println!("max:{}", cp10_trait::pattern::find_largest_simple(&list));
+
+    //
+    let pair = cp10_trait::partial::Pair::new(10, 45);
+    pair.cmp_display();
+
+    // 生命周期
+    println!("longest str={}", cp10_trait::no_pattern::longest_v2(String::from("zbv").as_str(), "zv"));
+    // 可以通过编译，s1的生命周期>s2
+    let s1 = String::from("test");
+    {
+        let s2 = "abc";
+        println!("longest str={}", cp10_trait::no_pattern::longest_v2(&s1, s2));
+    }
+    // 调用longest_v2无法通过编译，因为result的生命周期应该和str2的生命周期相同，但实际result的生命周期大于str2的生命周期
+    // 调用longest_v3则可以通过编译，因为指定了返回值的生命周期和str1相同
+    let str1 = String::from("long str is long");
+    let result;
+    {
+        let str2 = String::from("zwy");
+        // result = cp10_trait::no_pattern::longest_v2(&str1, &str2);
+        result = cp10_trait::no_pattern::longest_v3(&str1, &str2);
+    }
+    println!("longest str is {}", result);
 
 }
