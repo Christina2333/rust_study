@@ -50,7 +50,7 @@ impl Summary for Tweet {
 
 // 参数为trait，为了保证item经过调用之后可用，采用&
 // 当入参为多个trait时，可以采用"+" item: &(impl Summary + Display)
-pub fn notify(item: &(impl Summary)) {
+pub fn notify(item: &impl Summary) {
     println!("Breaking news! {}", item.summarize());
 }
 // 如果入参为多个trait，也可以使用where

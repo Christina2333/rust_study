@@ -22,7 +22,7 @@ impl<'a> ImportantExcerpt<'a> {
 // (3)当入参有多个，且其中有一个是&self或者&mut self时，self的生命周期会赋值给输出参数`
 
 // 综合trait、生命周期、范型
-pub fn longest_with_ann<'a, T>(str1: &'a str, str2: &'a str2, ann: T) -> &'a str
+pub fn longest_with_ann<'a, T>(str1: &'a str, str2: &'a str, ann: T) -> &'a str
 where T: Display {
     println!("display {}", ann);
     if str1.len() < str2.len() {

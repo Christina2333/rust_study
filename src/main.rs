@@ -65,5 +65,6 @@ fn main() {
         result = cp10_trait::no_pattern::longest_v3(&str1, &str2);
     }
     println!("longest str is {}", result);
+    println!("result {}", cp10_trait::lifecycle::longest_with_ann(&str1, "测试", "测试哈哈"));
 
 }
