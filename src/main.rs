@@ -4,6 +4,7 @@ use cp10_trait::no_pattern;
 use cp10_trait::partial::Pair;
 
 mod cp10_trait;
+mod cp13_function;
 
 fn main() {
     // (1)没有范型的函数
@@ -67,4 +68,8 @@ fn main() {
     println!("longest str is {}", result);
     println!("result {}", cp10_trait::lifecycle::longest_with_ann(&str1, "测试", "测试哈哈"));
 
+    // cp13_闭包
+    let simulated_user_specified_value = 10;
+    let simulated_random_number = 3;
+    cp13_function::generate_workout(simulated_user_specified_value, simulated_random_number);
 }
