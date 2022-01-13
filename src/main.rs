@@ -2,9 +2,12 @@ use cp10_trait::summary::{Summary, notify, notify2, notify3};
 use cp10_trait::pattern;
 use cp10_trait::no_pattern;
 use cp10_trait::partial::Pair;
+use cp14_cargo::art::PrimaryColor;
+use cp14_cargo::art::mix;
 
 mod cp10_trait;
 mod cp13_function;
+mod cp14_cargo;
 
 fn main() {
     // (1)没有范型的函数
@@ -73,4 +76,9 @@ fn main() {
     let simulated_random_number = 3;
     cp13_function::closure_test::generate_workout(
         simulated_user_specified_value, simulated_random_number);
+
+    // cp14
+    let red = PrimaryColor::Red;
+    let yellow = PrimaryColor::Yellow;
+    mix(red, yellow);
 }
