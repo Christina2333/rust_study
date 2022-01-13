@@ -71,5 +71,6 @@ fn main() {
     // cp13_闭包
     let simulated_user_specified_value = 10;
     let simulated_random_number = 3;
-    cp13_function::generate_workout(simulated_user_specified_value, simulated_random_number);
+    cp13_function::closure_test::generate_workout(
+        simulated_user_specified_value, simulated_random_number);
 }
