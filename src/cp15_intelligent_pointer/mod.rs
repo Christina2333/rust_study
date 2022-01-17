@@ -9,3 +9,7 @@ pub mod drop_test;
 pub mod rc;
 // 关于RefCell<T>
 pub mod refcell_test;
+// 循环引用
+pub mod circle_ref;
+// 通过weak<T>解决循环引用导致的内存泄露
+pub mod weak_ref;

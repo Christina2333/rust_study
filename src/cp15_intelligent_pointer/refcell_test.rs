@@ -1,8 +1,19 @@
 use std::cell::RefCell;
+use std::rc::Rc;
+
+// 链表，其中每个列表的所有权可以有多个，且可以进行更改
+#[derive(Debug)]
+pub enum ListV3 {
+    Cons(Rc<RefCell<i32>>, Rc<ListV3>),
+    Nil,
+}
 
 #[cfg(test)]
 mod test {
     use super::{LimitTracker, MockMessengerRefCell};
+    use std::rc::Rc;
+    use std::cell::RefCell;
+    use super::ListV3::{Cons, Nil};
 
     // 这部分代码无法编译通过，因为set_value表示tracker是一个mut，但是send方法需要入参是一个不可变引用
     #[test]
@@ -21,6 +32,19 @@ mod test {
         assert_eq!(messenger.send_messages.borrow().len(), 1);
     }
 
+    #[test]
+    fn listV3_rc_refcell() {
+        let value = Rc::new(RefCell::new(5));
+        // 此处需要传入Rc::clone(&value)，如果直接传入value，则value无法在后续进行使用
+        let a = Rc::new(Cons(Rc::clone(&value), Rc::new(Nil)));
+        let b = Cons(Rc::new(RefCell::new(6)), Rc::clone(&a));
+        let c = Cons(Rc::new(RefCell::new(10)), Rc::clone(&a));
+
+        *value.borrow_mut() += 10; // value.borrow_mut()返回的是RefMut，需要通过*进行解引用，此处
+        println!("a={:?}", a);
+        println!("b={:?}", b);
+        println!("c={:?}", c);
+    }
 
 }
 
@@ -87,5 +111,11 @@ impl MockMessengerRefCell {
 impl Messenger for MockMessengerRefCell {
     fn send(&self, message: &str) {
         self.send_messages.borrow_mut().push(String::from(message))
+
+        // 测试拥有多个可变引用时，触发panic
+        // let mut one_borrow =  self.send_messages.borrow_mut();
+        // let mut two_borrow = self.send_messages.borrow_mut();
+        // one_borrow.push(String::from(message));
+        // two_borrow.push(String::from(message));
     }
 }
