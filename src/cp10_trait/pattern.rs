@@ -1,3 +1,32 @@
+#[cfg(test)]
+mod test {
+    use super::*;
+
+    #[test]
+    fn struct_pattern() {
+        let integer = Point::new(1, 3);
+        let float = Point::new(1.9, 3.4);
+        println!("float.x={}", float.x());
+        println!("float.distance={}", float.distance_from_origin());
+
+        let p1 = Point2::new(1, "c");
+        let p2 = Point2::new("a", 3.9);
+        let p3 = p1.mixup(p2);
+        println!("p3.x={}, p3.y={}", p3.x(), p3.y());
+    }
+
+    #[test]
+    fn pattern_find_largest() {
+        let list = [3, 6, 1, 10];
+        // 使用带范型的函数比较大小
+        let max = find_largest(&list);
+        println!("max:{}", max);
+        let list = vec![34, 50, 25, 100, 65];
+        println!("max:{}", find_largest(&list));
+        println!("max:{}", find_largest_simple(&list));
+    }
+}
+
 // 结构体中的范型
 pub struct Point<T> {
     x: T,

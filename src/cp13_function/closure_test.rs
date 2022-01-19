@@ -63,6 +63,7 @@ impl<T, R> Cacher<T, R>
 #[cfg(test)]
 mod test {
     use super::Cacher;
+    use super::*;
 
     // 当闭包的参数不同时，返回的value值也是一样的
     #[test]
@@ -112,6 +113,14 @@ mod test {
         fn returns_closure() -> Box<dyn Fn(i32) -> i32> {
             Box::new(|x| x + 1)
         }
+    }
+
+    #[test]
+    fn generate_work_out() {
+        let simulated_user_specified_value = 10;
+        let simulated_random_number = 3;
+        generate_workout(
+            simulated_user_specified_value, simulated_random_number);
     }
 }
 

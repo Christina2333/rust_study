@@ -1,5 +1,16 @@
 use std::fmt::Display;
 
+#[cfg(test)]
+mod test {
+    use super::*;
+
+    #[test]
+    fn longest() {
+        let str1 = String::from("long str is long");
+        println!("result {}", longest_with_ann(&str1, "测试", "测试哈哈"));
+    }
+}
+
 pub struct ImportantExcerpt<'a> {
     part: &'a str,
 }

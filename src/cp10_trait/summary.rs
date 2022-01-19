@@ -1,5 +1,25 @@
 use std::fmt::{Display, Formatter, Error, Debug};
 
+#[cfg(test)]
+mod test {
+    use super::*;
+
+    #[test]
+    fn trait_test() {
+        let tweet = Tweet {
+            username: String::from("christina"),
+            content: String::from("想下班"),
+            reply: false,
+            reweet: false
+        };
+        println!("1 new tweet {}", tweet.summarize());
+        // 调用入参为trait的函数
+        notify(&tweet);
+        notify2(&tweet);
+        notify3(&tweet, &tweet);
+    }
+}
+
 pub trait Summary {
     fn summarize(&self) -> String {
         format!("(Read more from {} ...)", self.summarize_author())

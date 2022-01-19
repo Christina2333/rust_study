@@ -1,3 +1,38 @@
+#[cfg(test)]
+mod test {
+    use super::*;
+
+    #[test]
+    fn no_pattern_find_largest() {
+        let list = [3, 6, 1, 10];
+        let max = find_largest(&list);
+        println!("max={}", max);
+    }
+
+    #[test]
+    fn lifecycle() {
+        // 生命周期
+        println!("longest str={}", longest_v2(String::from("zbv").as_str(), "zv"));
+        // 可以通过编译，s1的生命周期>s2
+        let s1 = String::from("test");
+        {
+            let s2 = "abc";
+            println!("longest str={}", longest_v2(&s1, s2));
+        }
+        // 调用longest_v2无法通过编译，因为result的生命周期应该和str2的生命周期相同，但实际result的生命周期大于str2的生命周期
+        // 调用longest_v3则可以通过编译，因为指定了返回值的生命周期和str1相同
+        let str1 = String::from("long str is long");
+        let result;
+        {
+            let str2 = String::from("zwy");
+            // result = longest_v2(&str1, &str2);
+            result = longest_v3(&str1, &str2);
+        }
+        println!("longest str is {}", result);
+    }
+}
+
+
 pub fn find_largest(list: &[i32]) -> i32 {
     let mut max = list[0];
     for &i in list.iter() {

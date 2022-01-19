@@ -32,3 +32,15 @@ pub mod utils {
         SecondaryColor::Green
     }
 }
+
+#[cfg(test)]
+mod test {
+    use super::*;
+
+    #[test]
+    fn test() {
+        let red = PrimaryColor::Red;
+        let yellow = PrimaryColor::Yellow;
+        mix(red, yellow);
+    }
+}
