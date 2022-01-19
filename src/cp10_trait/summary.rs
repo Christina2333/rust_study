@@ -1,4 +1,4 @@
-use std::fmt::{Display, Formatter, Error, Debug};
+use std::fmt::{Display, Debug};
 
 #[cfg(test)]
 mod test {

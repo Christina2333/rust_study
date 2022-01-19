@@ -1,5 +1,3 @@
-use std::panic::panic_any;
-
 pub struct Guess {
     value: i32,
 }
