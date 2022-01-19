@@ -11,3 +11,4 @@ pub mod cp15_intelligent_pointer;
 pub mod cp16_concurrence;
 pub mod cp17_oop;
 pub mod cp18_match;
+pub mod cp19_advanced;

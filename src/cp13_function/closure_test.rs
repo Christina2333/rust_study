@@ -105,5 +105,13 @@ mod test {
         let y = vec![1,2,3];
         assert!(equal_to_x(y));
     }
+
+    // 返回闭包
+    #[test]
+    fn return_closure() {
+        fn returns_closure() -> Box<dyn Fn(i32) -> i32> {
+            Box::new(|x| x + 1)
+        }
+    }
 }
 
