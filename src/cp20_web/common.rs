@@ -39,12 +39,18 @@ impl ThreadPool {
 
 impl Drop for ThreadPool {
     fn drop(&mut self) {
-        for worker in &mut self.workers {
-            println!("clean worker {}", worker.id);
+        // 第一个循环用于向worker中发送停止的通知
+        println!("Sending terminate message to all workers");
+        for _ in &mut self.workers {
             // 发送停止通知，可以终止worker中的死循环
             self.sender.send(Message::Terminate).unwrap();
+        }
+        println!("Shutting down all workers");
+        // 第二个循环用于停掉每个worker线程
+        for worker in &mut self.workers {
             if let Some(t) = worker.thread.take() {
                 // join方法无法通过&调用，需要消耗掉所有权
+                println!("Shutting down worker {}", worker.id);
                 t.join().unwrap();
             };
         }
@@ -67,10 +73,13 @@ impl Worker {
                 let msg = receiver.lock().unwrap().recv().unwrap();
                 match msg {
                     Message::NewJob(job) => {
-                        println!("Worker {} got a job; executing.", id);
+                        println!("Worker {} got a job executing.", id);
                         job();
                     }
-                    Message::Terminate => break
+                    Message::Terminate => {
+                        println!("Worker {} was told to terminate", id);
+                        break
+                    }
                 }
 
             }

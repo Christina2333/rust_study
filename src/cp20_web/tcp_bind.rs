@@ -22,10 +22,11 @@ pub fn tcp_bind() {
             connection_handle(stream);
         });
     }
+    println!("shutting down");
 }
 
 // 处理连接
-fn connection_handle(mut stream: TcpStream) {
+pub fn connection_handle(mut stream: TcpStream) {
     // 则个buffer的大小很重要！！！从文中的512改成1024
     let mut buffer = [0; 1024];
 
