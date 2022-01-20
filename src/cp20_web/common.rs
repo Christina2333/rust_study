@@ -8,7 +8,7 @@ type Job = Box<dyn FnOnce() + Send + 'static>;
 pub struct ThreadPool {
     workers: Vec<Worker>,
     // 此处sender视为一个队列，用于接收要执行的任务
-    sender: mpsc::Sender<Job>,
+    sender: mpsc::Sender<Message>,
 }
 impl ThreadPool {
     /// 创建线程池
@@ -33,30 +33,55 @@ impl ThreadPool {
     pub fn execute<F>(&self, f: F)
         where F: FnOnce() + Send + 'static {
         let job = Box::new(f);
-        self.sender.send(job).unwrap();
+        self.sender.send(Message::NewJob(job)).unwrap();
+    }
+}
+
+impl Drop for ThreadPool {
+    fn drop(&mut self) {
+        for worker in &mut self.workers {
+            println!("clean worker {}", worker.id);
+            // 发送停止通知，可以终止worker中的死循环
+            self.sender.send(Message::Terminate).unwrap();
+            if let Some(t) = worker.thread.take() {
+                // join方法无法通过&调用，需要消耗掉所有权
+                t.join().unwrap();
+            };
+        }
     }
 }
 
 struct Worker {
     id: usize,
-    thread: JoinHandle<()>,
+    // 在rust中，如果一个字段可以为空，一定需要Option
+    thread: Option<JoinHandle<()>>,
 }
 
 impl Worker {
-    fn new(id: usize, receiver: Arc<Mutex<Receiver<Job>>>) -> Worker {
+    fn new(id: usize, receiver: Arc<Mutex<Receiver<Message>>>) -> Worker {
         // move会使闭包获取变量所有权
         let thread = thread::spawn(move || {
-            // 死循环，每个Worker一直
+            // 死循环，每个Worker一直循环等待任务，为了在停机时可以退出循环，需要传递Message
             loop {
                 // lock获取互斥锁，recv获取放入send的待处理任务
-                let job = receiver.lock().unwrap().recv().unwrap();
-                println!("Worker {} got a job; executing.", id);
-                job();
+                let msg = receiver.lock().unwrap().recv().unwrap();
+                match msg {
+                    Message::NewJob(job) => {
+                        println!("Worker {} got a job; executing.", id);
+                        job();
+                    }
+                    Message::Terminate => break
+                }
+
             }
         });
         Worker {
             id,
-            thread
+            thread: Some(thread)
         }
     }
+}
+enum Message {
+    NewJob(Job),
+    Terminate
 }

@@ -32,7 +32,7 @@ fn connection_handle(mut stream: TcpStream) {
     // 前缀"b"表示为二进制的字符串，因为buffer是二进制数组
     let get = b"GET / HTTP/1.1\r\n";
     let slow = b"GET /sleep HTTP/1.1\r\n";
-    stream.read(&mut buffer);
+    stream.read(&mut buffer).unwrap();
     // println!("Request {}", String::from_utf8_lossy(&buffer));
 
     let (status_line, filename) = if buffer.starts_with(get) {
