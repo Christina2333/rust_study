@@ -4,7 +4,7 @@ mod test {
 
     #[test]
     fn struct_pattern() {
-        let integer = Point::new(1, 3);
+        let _integer = Point::new(1, 3);
         let float = Point::new(1.9, 3.4);
         println!("float.x={}", float.x());
         println!("float.distance={}", float.distance_from_origin());

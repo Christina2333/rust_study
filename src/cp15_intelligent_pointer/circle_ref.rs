@@ -9,7 +9,6 @@ mod test {
     use std::rc::Rc;
     use super::ListV4::{Cons, Nil};
     use std::cell::RefCell;
-    use std::borrow::BorrowMut;
 
     #[test]
     fn circle_ref() {

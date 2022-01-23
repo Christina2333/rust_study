@@ -24,7 +24,7 @@ trait State {
     // 执行审批流程
     fn approve(self: Box<Self>) -> Box<dyn State>;
 
-    fn content<'a>(&self, post: &'a Post) -> &'a str {
+    fn content<'a>(&self, _post: &'a Post) -> &'a str {
         ""
     }
 }

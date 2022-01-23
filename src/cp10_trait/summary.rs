@@ -74,7 +74,7 @@ pub fn notify(item: &impl Summary) {
     println!("Breaking news! {}", item.summarize());
 }
 // 如果入参为多个trait，也可以使用where
-pub fn notify_where<T, U>(item1: &T, item2: &U)
+pub fn notify_where<T, U>(_item1: &T, _item2: &U)
 where T: Display + Clone,
 U: Clone + Debug
 {}

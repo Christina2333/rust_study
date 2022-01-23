@@ -27,7 +27,7 @@ pub mod utils {
     use super::kinds::*;
 
     /// 将两种等量的原色混合生成调和色
-    pub fn mix(c1: PrimaryColor, c2: PrimaryColor) -> SecondaryColor {
+    pub fn mix(_c1: PrimaryColor, _c2: PrimaryColor) -> SecondaryColor {
         // --略--
         SecondaryColor::Green
     }

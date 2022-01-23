@@ -64,6 +64,6 @@ pub fn longest_v2<'a>(str1: &'a str, str2: &'a str) -> &'a str {
 
 // 如果想要指定返回值的生命周期和str1相同，则无需指定str2的生命周期，如下所示
 // 函数返回值的生命周期一定要与至少一个入参的生命周期关联
-pub fn longest_v3<'a>(str1: &'a str, str2: &str) -> &'a str {
+pub fn longest_v3<'a>(str1: &'a str, _str2: &str) -> &'a str {
     str1
 }

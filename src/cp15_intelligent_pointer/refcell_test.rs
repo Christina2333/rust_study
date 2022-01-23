@@ -33,7 +33,7 @@ mod test {
     }
 
     #[test]
-    fn listV3_rc_refcell() {
+    fn list_v3_rc_refcell() {
         let value = Rc::new(RefCell::new(5));
         // 此处需要传入Rc::clone(&value)，如果直接传入value，则value无法在后续进行使用
         let a = Rc::new(Cons(Rc::clone(&value), Rc::new(Nil)));

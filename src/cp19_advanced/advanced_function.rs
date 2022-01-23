@@ -18,12 +18,12 @@ mod test {
     fn fun_and_closure() {
         // 可以接收闭包
         let list_of_numbers = vec![1, 2, 3];
-        let list_of_strings: Vec<String> = list_of_numbers
+        let _list_of_strings: Vec<String> = list_of_numbers
             .iter()
             .map(|i| i.to_string())
             .collect();
         // 可以接收函数，注意map中如果传入的是ToString::to_string()会报错
-        let list_of_string2: Vec<String> = list_of_numbers
+        let _list_of_string2: Vec<String> = list_of_numbers
             .iter()
             .map(ToString::to_string)
             .collect();
@@ -33,11 +33,11 @@ mod test {
     fn construct_closure() {
         enum Status {
             Value(u32),
-            Stop
+            _Stop
         }
         // (0u32..20)表示(0..20)的元组数据u32表示0的数据类型
-        let list_of_status: Vec<Status> = (0u32..20).map(Status::Value).collect();
+        let _list_of_status: Vec<Status> = (0u32..20).map(Status::Value).collect();
         // 等价于上面的写法
-        let list_of_status: Vec<Status> = (0u32..20).map(|x| Status::Value(x)).collect();
+        let _list_of_status: Vec<Status> = (0u32..20).map(|x| Status::Value(x)).collect();
     }
 }

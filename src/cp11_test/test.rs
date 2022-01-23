@@ -68,7 +68,7 @@ mod tests {
     #[should_panic(expected = "Guess value must be less than 100")]
     // 说明测试会抛出异常，加上该注解则单测不会失败，expected表示期望抛出的异常信息
     fn guess_greater_than_100() {
-        let res = Guess::new(200);
+        let _res = Guess::new(200);
     }
 
     // 测试返回Result

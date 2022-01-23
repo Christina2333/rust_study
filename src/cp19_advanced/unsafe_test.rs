@@ -24,7 +24,7 @@ mod test {
 
         // 创建无效裸指针
         let address = 0x012345usize;
-        let r = address as *const i32;
+        let _r = address as *const i32;
     }
 
     // 把unsafe代码封装在安全函数中

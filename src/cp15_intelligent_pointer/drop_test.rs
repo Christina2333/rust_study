@@ -8,7 +8,7 @@ mod test {
         let c = CustomSmartPointer {
             data: String::from("my stuff"),
         };
-        let d = CustomSmartPointer {
+        let _d = CustomSmartPointer {
             data: String::from("other stuff"),
         };
         // 显示释放c

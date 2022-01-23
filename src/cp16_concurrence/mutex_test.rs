@@ -2,7 +2,6 @@
 mod test {
     use std::sync::{Mutex, Arc};
     use std::thread;
-    use std::rc::Rc;
 
     #[test]
     fn single_thread_mutex() {

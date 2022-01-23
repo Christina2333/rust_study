@@ -15,7 +15,7 @@ mod test {
             ))
         ));
         // 此时列表b持有了列表a的所有权
-        let b = List::Cons(3, Box::new(a));
+        let _b = List::Cons(3, Box::new(a));
         // let c = List::Cons(4, Box::new(a));
     }
 
@@ -24,10 +24,10 @@ mod test {
         let a = Rc::new(Cons(5, Rc::new(Cons(10, Rc::new(Nil)))));
         println!("count after creating a = {}", Rc::strong_count(&a));
         // 此处的clone只会增加引用计数，而不会进行数据拷贝，虽然此处和a.clone的效果相同
-        let b = Cons(3, Rc::clone(&a));
+        let _b = Cons(3, Rc::clone(&a));
         println!("count after creating b = {}", Rc::strong_count(&a));
         {
-            let c = Cons(4, Rc::clone(&a));
+            let _c = Cons(4, Rc::clone(&a));
             println!("count after creating c = {}", Rc::strong_count(&a));
         }
         println!("count after creating c = {}", Rc::strong_count(&a));

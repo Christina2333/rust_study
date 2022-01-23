@@ -110,7 +110,7 @@ mod test {
     // 返回闭包
     #[test]
     fn return_closure() {
-        fn returns_closure() -> Box<dyn Fn(i32) -> i32> {
+        fn _returns_closure() -> Box<dyn Fn(i32) -> i32> {
             Box::new(|x| x + 1)
         }
     }

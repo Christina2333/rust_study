@@ -1,7 +1,5 @@
 use std::ops::Add;
 use std::fmt;
-use std::fmt::Formatter;
-use std::io;
 
 #[cfg(test)]
 mod test {

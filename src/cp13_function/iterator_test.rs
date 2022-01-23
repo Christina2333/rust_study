@@ -84,9 +84,6 @@ mod counter_test {
 
 #[cfg(test)]
 mod test {
-
-    use super::*;
-
     #[test]
     fn iter() {
         let v1 = vec![1, 2, 3];

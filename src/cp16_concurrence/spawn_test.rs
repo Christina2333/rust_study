@@ -1,5 +1,3 @@
-use std::thread;
-
 #[cfg(test)]
 mod test {
 

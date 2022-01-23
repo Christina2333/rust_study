@@ -1,6 +1,5 @@
 #[cfg(test)]
 mod test {
-    use super::*;
     use super::List::{Cons, Nil};
 
     #[test]

@@ -4,10 +4,10 @@ mod test {
     #[test]
     fn alias_type() {
         type Thunk = Box<dyn Fn() + Send + 'static>;
-        let f: Thunk = Box::new(|| println!("hi"));
+        let _f: Thunk = Box::new(|| println!("hi"));
 
-        fn takes_long_type(f: Thunk) {}
-        fn returns_long_type() -> Thunk {
+        fn _takes_long_type(_f: Thunk) {}
+        fn _returns_long_type() -> Thunk {
             Box::new(|| println!("hi"))
         }
     }
