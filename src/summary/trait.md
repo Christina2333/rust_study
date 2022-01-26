@@ -73,9 +73,47 @@ pub trait Clone {
 目的：为了确保其他人编写的代码不会破坏你的代码。
 内容：只有当trait或者要实现trait的类型位于crate的本地作用域时，才能为该类型实现trait。
 举例：不能在自定义crate中为Vec<T>实现Display trait，因为Display和Vec<T>都定义在标准库中，不位于自定义crate本地作用域。
-打破：特殊情况下可以cp19！！！
+打破：通过newtype模式，详见rust设计模式/newtype模式
 
 
 
 #### 高级trait
 与trait相关的关联类型，默认类型参数，完全限定语法，supertraits、newtype模式
+
+##### 关联类型(associated types)
+是一个将类型占位符与trait相关联的方式。例如
+`
+pub trait Iterator {
+    type Item;
+    fn next(&mut self) -> Option<Self::Item>;
+}
+`
+与范型的区别：
+范型表示这个方法可以被多种类型实现，因此需要为每个类型标注T对应的类型。且可以多次实现这个trait
+通过关联类型，无需标注类型，因为不能多次实现这个trait。
+
+
+##### 默认范型类型参数和运算符重载
+
+
+##### 完全限定语法
+
+##### supertrait，在一个trait中使用另一个trait的功能
+类似于继承
+`
+fn main() {
+    use std::fmt;
+    trait OutlinePrint: fmt::Display {
+        fn outline_print(&self) {
+            let output = self.to_string(); // 其中to_string()是Display中的方法
+            let len = output.len();
+            println!("{}", "*".repeat(len + 4));
+            println!("*{}*", " ".repeat(len + 2));
+            println!("* {} *", output);
+            println!("*{}*", " ".repeat(len + 2));
+            println!("{}", "*".repeat(len + 4));
+        }
+    }
+}
+`
+因此实现了OutlinePrint的结构体必须实现Display。
